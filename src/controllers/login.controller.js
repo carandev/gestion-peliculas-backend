@@ -4,6 +4,7 @@ import {User} from '../models/User.js';
 
 export const login = async (req, res) => {
   const {username, password} = req.body;
+  const {JWT_SECRET_KEY} = process.env;
 
   if (!username || !password) return res.sendStatus(401);
   if (username === "" || password === "") return res.sendStatus(401);
@@ -28,7 +29,7 @@ export const login = async (req, res) => {
       .setProtectedHeader({alg: 'HS256', typ: 'JWT'})
       .setIssuedAt()
       .setExpirationTime('1h')
-      .sign(encoder.encode(process.env.JWT_SECRET_KEY));
+      .sign(encoder.encode(JWT_SECRET_KEY));
 
     return res.send({jwt});
   } catch (error) {

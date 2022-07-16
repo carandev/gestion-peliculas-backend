@@ -5,9 +5,13 @@ import { Movie } from "../models/Movie.js";
 const routerMovies = Router();
 
 
-routerMovies.get('/popular', (req, res) => {
+routerMovies.get('/popular/:page', (req, res) => {
 
-  tmdb.getMoviePopular().then(response => res.send(response));
+  const {page} = req.params;
+
+  if (!page) return res.sendStatus(404);
+  
+  tmdb.getMoviePopular(page).then(response => res.send(response));
 
 })
 

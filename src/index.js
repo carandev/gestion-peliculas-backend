@@ -3,7 +3,7 @@ import cors  from 'cors';
 import dotenv from 'dotenv';
 import routerRegister from './routes/register.routes.js';
 import routerLogin from './routes/login.routes.js';
-import routerProfile from './routes/posts.routes.js';
+import routerProfile from './routes/user.routes.js';
 import routerMovies from './routes/popularMovies.routes.js';
 import {sequelize} from './database/database.js';
 import app from './app.js';
@@ -19,7 +19,7 @@ const main = async () => {
   app.use(express.json());
   app.use(routerRegister);
   app.use(routerLogin);
-  app.use(routerProfile);
+  app.use('/user/', routerProfile);
   app.use('/movies/', routerMovies);
 
   app.listen(PORT);

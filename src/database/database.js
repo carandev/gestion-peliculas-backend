@@ -11,8 +11,6 @@ const {
   POSTGRESQL_DB
 } = process.env;
 
-console.log(POSTGRESQL_DB);
-
 export const sequelize = new Sequelize(POSTGRESQL_DB, POSTGRESQL_USER, POSTGRESQL_PASSWORD, {
   host: POSTGRESQL_HOSTNAME,
   port: POSTGRESQL_PORT,
