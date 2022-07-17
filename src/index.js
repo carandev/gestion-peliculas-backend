@@ -1,7 +1,6 @@
 import express from 'express'
 import cors  from 'cors';
 import dotenv from 'dotenv';
-import routerRegister from './routes/register.routes.js';
 import routerLogin from './routes/login.routes.js';
 import userRouter from './routes/user.routes.js';
 import routerMovies from './routes/popularMovies.routes.js';
@@ -17,7 +16,6 @@ const main = async () => {
   app.use(cors());
 
   app.use(express.json());
-  app.use(routerRegister);
   app.use(routerLogin);
   app.use('/user/', userRouter);
   app.use('/movies/', routerMovies);

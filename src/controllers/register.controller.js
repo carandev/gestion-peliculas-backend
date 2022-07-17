@@ -17,11 +17,11 @@ export const createUser = async (req, res) => {
 
   const passwordHashed = await bcryptjs.hash(password, 8);
 
-  await User.create({
+  const user = await User.create({
     name,
     username,
     password: passwordHashed
   });
 
-  return res.sendStatus(200);
+  return res.sendStatus(user);
 }
