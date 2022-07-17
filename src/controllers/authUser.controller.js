@@ -1,7 +1,7 @@
 import { jwtVerify } from "jose";
 import {User} from '../models/User.js'
 
-export const getUser = async (req, res) => {
+export const authUser = async (req, res) => {
   const {authorization} = req.headers;
   
   if (!authorization) return res.sendStatus(401);

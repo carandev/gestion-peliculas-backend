@@ -4,7 +4,7 @@ export default {
   getMoviePopular : async (page) => {
     const {data} = await axios.get(`https://api.themoviedb.org/3/movie/popular?page=${page}`, {
       headers: {'Authorization': `Bearer ${process.env.TMDB_API_TOKEN}`}
-    });
+    }).catch(error => error);
 
     return data;
   },

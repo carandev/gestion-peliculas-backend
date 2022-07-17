@@ -1,8 +1,10 @@
 import {Router} from 'express';
-import {getUser} from '../controllers/user.controller.js'
+import {authUser} from '../controllers/authUser.controller.js';
+import {getUser} from '../controllers/getUser.controller.js';
 
-const routerProfile = Router();
+const userRouter = Router();
 
-routerProfile.get('/', getUser);
+userRouter.get('/', authUser);
+userRouter.get('/:id', getUser);
 
-export default routerProfile;
+export default userRouter;

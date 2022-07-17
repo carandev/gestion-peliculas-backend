@@ -4,14 +4,22 @@ import { Movie } from "../models/Movie.js";
 
 const routerMovies = Router();
 
+routerMovies.get('/popular/', (req, res) => {
+  return tmdb.getMoviePopular(1).then(response => res.send(response));
+});
 
-routerMovies.get('/popular/:page', (req, res) => {
+routerMovies.get('/popular/:page', async (req, res) => {
 
   const {page} = req.params;
 
   if (!page) return res.sendStatus(404);
+
+  const movies = await tmdb.getMoviePopular(page);
+
+  if (!movies) return res.send(404);
+  if (JSON.stringify(movies) === '{}') return res.sendStatus(404);
   
-  tmdb.getMoviePopular(page).then(response => res.send(response));
+  return res.send(movies);
 
 })
 
@@ -44,32 +52,13 @@ routerMovies.put('/', async (req, res) => {
   })
 
   return res.sendStatus(200);
-})
+});
 
-routerMovies.get('/:user_id', async (req, res) => {
-  const {user_id} = req.params;
-  
-  if (!user_id) return res.status(401).json({message: 'Invalid user id'});
-  if (user_id === '') return res.status(401).json({message: 'Invalid user id'});
-
-
-  const movies = await Movie.findAll({
-    where: {
-      user_id
-    }
-  });
-
-  if (!movies) return res.status(401).json({message: 'Empty movies'});
-
-  return res.json(movies);
-
-})
-
-routerMovies.get('/api/:id', (req, res) => {
+routerMovies.get('/:id', (req, res) => {
   tmdb.getMovie(req.params.id).then(response => {
     return res.send(response);
   });
-})
+});
 
 routerMovies.post('/add', async (req, res) => {
   const {title, user_id, api_id} = req.body;
